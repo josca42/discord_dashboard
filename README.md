@@ -5,7 +5,7 @@ This project currently contains code for daily scraping of a discord server, whe
 
 ### Get data
 
-The scraping is currently on an ubuntu server. For access to the server send me a message with your public ssh key. Once I have added your ssh key to the list of authorized keys then the data can be downloaded using the following command. 
+The scraping is currently done on an ubuntu server. For access to the server send me a message with your public ssh key. Once I have added your ssh key to the list of authorized keys then the data can be downloaded using the following command. 
 
 ```
 scp -r root@159.223.219.5:/root/data/ . # Download all data
@@ -16,7 +16,7 @@ scp -r root@159.223.219.5:/root/data/file_dumps . # Only file dumps
 
 ### Run code
 
-Once I've added the ssh key to the list of authorized keys then you have root access to the server. You are then more than welcome to use the server to develop from.
+Once I've added the ssh key to the list of authorized keys then you have root access to the server. You are then more than welcome to use the server to develop from. If anything is broken then it's pretty easy to just destroy the server and spin up a new one.
 
 In order to run the project install the src folder as a python package by running the following command in the root of the project directory.
 
