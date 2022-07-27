@@ -68,3 +68,8 @@ class CRUDBase(Generic[ModelType, SessionType]):
             )
             db.execute(stm)
             db.commit()
+
+    def _select_columns(self, query, columns: list):
+        cols = [getattr(self.model, col) for col in columns]
+        query = query.with_entities(*cols)
+        return query
