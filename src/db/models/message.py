@@ -7,7 +7,6 @@ from sqlalchemy import (
     BigInteger,
     Integer,
     String,
-
     DateTime,
 )
 from sqlalchemy.sql import func
@@ -21,4 +20,5 @@ class Message(Base):
     reactions = Column(Integer, default=0)
     channel_id = Column(Integer, index=True)
     guild_id = Column(Integer)
-
+    message_type = Column(String)
+    reply_to_id = Column(Integer, default=None)
