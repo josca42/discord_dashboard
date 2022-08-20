@@ -27,7 +27,7 @@ def discord2json():
     cmd = " ".join(
         [
             "dotnet /root/downloads/DiscordChatExporter/DiscordChatExporter.Cli.dll export",
-            "-c 986661887863312394",
+            "-c 950184868837490748",
             f"-t {DISCORD_BOT_TOKEN}",
             f"-o {str(DISCORD_DATA_DIR / str(today))}",
             f"--after {a_week_earlier}",
