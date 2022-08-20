@@ -5,7 +5,7 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 import pandas as pd
-import dash_table
+from dash import dash_table
 import numpy as np
 
 from dashboard.app.app import app
@@ -13,6 +13,7 @@ from dashboard.app.components.cards import card, grid_card, tab_card
 from dashboard.app.components.wrappers import main_wrapper
 
 from src.db import crud
+
 
 table_cols_format = [
     {"id": "channel", "name": "channel"},
@@ -44,11 +45,15 @@ def layout(sidebar_context):
         ],
         className="row flex-grow-1",
     )
-    return main_wrapper([tables], sidebar_context,)
+    return main_wrapper(
+        [tables],
+        sidebar_context,
+    )
 
 
 @app.callback(
-    Output("linksBody", "children"), [Input("links", "value")],
+    Output("linksBody", "children"),
+    [Input("links", "value")],
 )
 def update_event_map(list_type):
 
