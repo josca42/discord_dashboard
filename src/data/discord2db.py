@@ -13,32 +13,32 @@ from src import config
 from tqdm import tqdm
 
 DISCORD_DATA_DIR = config["DISCORD_DATA_DIR"]
-# DISCORD_BOT_TOKEN = config["DISCORD_BOT_TOKEN"]
+DISCORD_BOT_TOKEN = config["DISCORD_BOT_TOKEN"]
 
 
 def discord2db():
-    # discord2json()
+    discord2json()
     json2db()
 
 
-# def discord2json():
-#     today = date.today()
-#     a_week_earlier = today - timedelta(days=30 * 9)
+def discord2json():
+    today = date.today()
+    a_week_earlier = today - timedelta(days=30 * 9)
 
-#     cmd = " ".join(
-#         [
-#             "dotnet /root/downloads/DiscordChatExporter/DiscordChatExporter.Cli.dll export",
-#             "-c 986661887863312394",
-#             f"-t {DISCORD_BOT_TOKEN}",
-#             f"-o {str(DISCORD_DATA_DIR / str(today))}",
-#             f"--after {a_week_earlier}",
-#             "-f Json",
-#             '--dateformat "dd/MM/yyyy HH:mm"',
-#         ]
-#     )
-#     subprocess.run([cmd], shell=True)
+    cmd = " ".join(
+        [
+            "dotnet /root/downloads/DiscordChatExporter/DiscordChatExporter.Cli.dll export",
+            "-c 986661887863312394",
+            f"-t {DISCORD_BOT_TOKEN}",
+            f"-o {str(DISCORD_DATA_DIR / str(today))}",
+            f"--after {a_week_earlier}",
+            "-f Json",
+            '--dateformat "dd/MM/yyyy HH:mm"',
+        ]
+    )
+    subprocess.run([cmd], shell=True)
 
-#     print(f"Discord server was scraped at: {datetime.now()}")
+    print(f"Discord server was scraped at: {datetime.now()}")
 
 
 def json2db():
@@ -109,4 +109,5 @@ def links2db(links: List[dict]):
 
 
 if __name__ == "__main__":
+    discord2json()
     json2db()
