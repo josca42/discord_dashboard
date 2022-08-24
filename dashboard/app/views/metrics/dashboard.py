@@ -68,10 +68,7 @@ def layout(sidebar_context):
         className="row flex-grow-1",
     )
 
-    return main_wrapper(
-        [title, dropdown, fig_row1, fig_row2],
-        sidebar_context,
-    )
+    return main_wrapper([title, dropdown, fig_row1, fig_row2], sidebar_context,)
 
 
 @app.callback(
@@ -87,54 +84,56 @@ def update_event_map(channel_names):
 
     df["content_len"] = df["content"].str.len()
 
-    df_content_posted = df.resample("D")["content_len"].sum()
-    df_active_users = df.resample("D")["author"].nunique()
+    fig_content_posted = df.resample("D")["content_len"].sum().plot()
+    fig_active_users = df.resample("D")["author"].nunique().plot()
 
-    fig_content_posted = df_content_posted.plot()
-    fig_active_users = df_active_users.plot()
-
-    add_fig_annotations(fig_content_posted, df_content_posted)
-    add_fig_annotations(fig_active_users, df_active_users)
+    fig_layout = {
+        "plot_bgcolor": "white",
+        "xaxis": {"title": ""},
+        "yaxis": {"title": ""},
+        "showlegend": False,
+    }
+    fig_active_users.update_layout(fig_layout)
+    fig_content_posted.update_layout(fig_layout)
 
     return fig_content_posted, fig_active_users
 
 
-def add_fig_annotations(fig, df):
-    def _get_y_vals(lecture_dates, s_content):
-        y = []
-        for lecture_date in lecture_dates:
-            y.append(s_content.loc[lecture_date])
-        return y
+# def add_fig_annotations(fig, df):
+#     def _get_y_vals(lecture_dates, s_content):
+#         y = []
+#         for lecture_date in lecture_dates:
+#             y.append(s_content.loc[lecture_date])
+#         return y
 
-    balaji_lecture = []
-    discord_meetup = []
-    lecture_date = datetime(2021, 12, 2)
-    for i in range(4 * 9):
+#     balaji_lecture = []
+#     discord_meetup = []
+#     lecture_date = datetime(2021, 12, 2)
+#     for i in range(4 * 9):
 
-        if i <= 4 * 4:
-            balaji_lecture.append(lecture_date)
-        else:
-            discord_meetup.append(lecture_date)
+#         if i <= 4 * 4:
+#             balaji_lecture.append(lecture_date)
+#         else:
+#             discord_meetup.append(lecture_date)
 
-        lecture_date += timedelta(days=7)
+#         lecture_date += timedelta(days=7)
 
-    fig.add_trace(
-        go.Scatter(
-            x=balaji_lecture,
-            y=_get_y_vals(balaji_lecture, df),
-            mode="markers",
-            name="Balaji lecture",
-            visible="legendonly",
-        )
-    )
-    fig.add_trace(
-        go.Scatter(
-            x=discord_meetup,
-            y=_get_y_vals(discord_meetup, df),
-            mode="markers",
-            name="Discord Meetup",
-            visible="legendonly",
-        )
-    )
+#     fig.add_trace(
+#         go.Scatter(
+#             x=balaji_lecture,
+#             y=_get_y_vals(balaji_lecture, df),
+#             mode="markers",
+#             name="Balaji lecture",
+#             visible="legendonly",
+#         )
+#     )
+#     fig.add_trace(
+#         go.Scatter(
+#             x=discord_meetup,
+#             y=_get_y_vals(discord_meetup, df),
+#             mode="markers",
+#             name="Discord Meetup",
+#             visible="legendonly",
+#         )
+#     )
 
-    fig.update_layout({"plot_bgcolor": "white", "xaxis": {"title": ""}})
